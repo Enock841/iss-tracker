@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import time
 import requests
 URL = "http://api.open-notify.org/iss-now.json"
 
@@ -39,10 +40,17 @@ def get_iss_position():
     return parse_position(data) 
 
 
+def collect_positions(count,delay):
+    history = []
+    for a in range(count):
+        result = get_iss_position()
+        if result is not None:
+            history.append(result)
+        time.sleep(delay)
 
-result = get_iss_position()
-if result is None:
-    print("No data, try again later")
-else:
-    lat,lon,when = result
-    print(f"The ISS is at {lat:.2f}, {lon:.2f} as of {when.strftime('%H:%M:%S')} UTC")
+    return history
+
+history = collect_positions(5,5)
+for lat,lon,when in history:
+    print(f"{lat:.2f}, {lon:.2f} at {when.strftime('%H:%M:%S')} UTC")
+print(f"Collected {len(history)} positions.")
