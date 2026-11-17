@@ -29,16 +29,20 @@ def parse_position(response):
     except (KeyError,ValueError,TypeError) as e:
         print(f"Could not parse response: {e}")
         return None
+    
+
+def get_iss_position():
+    data = fetch_iss_data()
+    if data is None:
+        return None
+    
+    return parse_position(data) 
 
 
-data = fetch_iss_data()
-if data is None:
+
+result = get_iss_position()
+if result is None:
     print("No data, try again later")
 else:
-    result = parse_position(data)
-    if result is None:
-        print("Skipping bad response")
-    else:
-        lat,lon,when = result
-        print(f"The ISS is at {lat:.2f}, {lon:.2f} as of {when.strftime('%H:%M:%S')} UTC")
-    
+    lat,lon,when = result
+    print(f"The ISS is at {lat:.2f}, {lon:.2f} as of {when.strftime('%H:%M:%S')} UTC")
