@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 import time
+import pandas as pd
 import requests
 URL = "http://api.open-notify.org/iss-now.json"
 
@@ -50,7 +51,15 @@ def collect_positions(count,delay):
 
     return history
 
-history = collect_positions(5,5)
-for lat,lon,when in history:
-    print(f"{lat:.2f}, {lon:.2f} at {when.strftime('%H:%M:%S')} UTC")
-print(f"Collected {len(history)} positions.")
+
+def history_to_dataframe(history):
+    df = pd.DataFrame(history, columns=["lat","lon","time"])
+    return df
+
+history = collect_positions(3,3)
+df = history_to_dataframe(history)
+print(df)
+maxi = df["lat"].max()
+print(f"Highest latitude: {maxi:.2f}")
+
+
