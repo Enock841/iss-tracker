@@ -58,11 +58,14 @@ def history_to_dataframe(history):
     return df
 
 def make_map(df):
-    fig = px.scatter_geo(df, lat="lat", lon="lon", hover_name="time")
+    fig = px.line_geo(df, lat="lat", lon="lon", hover_name="time")
+    fig.update_traces(mode = "lines+markers")
+    fig.update_geos(fitbounds="locations")
+
     return fig
 
 
-history = collect_positions(3,3)
+history = collect_positions(8,3)
 df = history_to_dataframe(history)
 fig = make_map(df)
 fig.show()
