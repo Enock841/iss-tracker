@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 import time
 import pandas as pd
+import plotly.express as px
 import requests
 URL = "http://api.open-notify.org/iss-now.json"
 
@@ -56,10 +57,13 @@ def history_to_dataframe(history):
     df = pd.DataFrame(history, columns=["lat","lon","time"])
     return df
 
+def make_map(df):
+    fig = px.scatter_geo(df, lat="lat", lon="lon", hover_name="time")
+    return fig
+
+
 history = collect_positions(3,3)
 df = history_to_dataframe(history)
-print(df)
-maxi = df["lat"].max()
-print(f"Highest latitude: {maxi:.2f}")
-
+fig = make_map(df)
+fig.show()
 
