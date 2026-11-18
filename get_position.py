@@ -64,9 +64,11 @@ def make_map(df):
 
     return fig
 
+def main():
+    history = collect_positions(8,3)
+    df = history_to_dataframe(history)
+    fig = make_map(df)
+    fig.show()
 
-history = collect_positions(8,3)
-df = history_to_dataframe(history)
-fig = make_map(df)
-fig.show()
-
+if __name__ == "__main__":
+    main()
