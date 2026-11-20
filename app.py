@@ -21,6 +21,6 @@ def show_tracker():
         df = history_to_dataframe(st.session_state.history)
         st.write(f"Positions collected: {len(st.session_state.history)}")
         
-        st.map(df)
+        st.map(df, zoom= 6)
 
 show_tracker()
