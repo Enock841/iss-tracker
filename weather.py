@@ -29,11 +29,17 @@ def parse_weather(data):
 
 
 def format_weather(temp,cloud,wind):
-    return f"{temp}°C, {cloud}% cloud,{wind} km/h wind"
+    return f"{temp}°C, {cloud}% cloud, {wind} km/h wind"
 
+
+def get_weather(lat, lon):
+    data = fetch_weather(lat,lon)
+    if data is None:
+        return None
+    return parse_weather(data)
 
 if __name__ == "__main__":
-    weather = fetch_weather(51.5, -0.12)
+    weather = fetch_weather(0, -30)
     if weather is None:
         print("No weather data")
     else:
