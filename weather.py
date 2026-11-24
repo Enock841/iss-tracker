@@ -29,7 +29,7 @@ def parse_weather(data):
 
 
 def format_weather(temp,cloud,wind):
-    return f"{temp}°C, {cloud}% cloud, {wind} km/h wind"
+    return f"Weather conditions now: {temp}°C, {cloud}% cloud, {wind} km/h wind"
 
 
 def get_weather(lat, lon):
