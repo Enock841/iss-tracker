@@ -16,8 +16,15 @@ def parse_location(data):
     try:
         return data["display_name"]
     
-    except (KeyError,TypeError) as e:
+    except (KeyError,TypeError):
         return None
+
+
+def get_location(lat,lon):
+    result = fetch_location(lat, lon)
+    if result is None:
+        return None
+    return parse_location(result)
 
 
 
