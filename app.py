@@ -2,6 +2,8 @@ import streamlit as st
 from get_position import get_iss_position, history_to_dataframe
 from weather import get_weather, format_weather
 from location import get_location
+from ocean import ocean_name
+
 
 st.title("ISS Tracker")
 
@@ -25,7 +27,7 @@ def show_tracker():
 
         loca = get_location(lat, lon)
         if loca is None:
-            st.write("ISS is over water")
+            st.write(f"Currently over the {ocean_name(lat,lon)}")
         else:
             st.write(f"Currently over: {loca}")
 
